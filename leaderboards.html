@@ -24,9 +24,13 @@
     <!-- fontawesome 5 -->
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
     <link href="fonts/css/fontawesome-all.css" rel="stylesheet">
+
+    <link href="//d1ig6folwd6a9s.cloudfront.net/widgets-3.1.2.css" rel="stylesheet">
+  <script src="//d1ig6folwd6a9s.cloudfront.net/widgets-3.1.2.js"></script>
     
     <link rel="stylesheet" href="https://use.typekit.net/nfv4xlq.css">
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/edh.js"></script>
     
     
   </head>
@@ -130,20 +134,16 @@
                            <div class="row board-row">
           <div class="col-md-6"><div id="raised-board" class="raised-container">
             <h3>Funds raised</h3>
-			  <ul><li class="first"><span id="position">1 / </span><span id="name">Firstname Surname</span> <span id="raised">£0</span></li>
-    	<li><span id="position">2 / </span><span id="name">Firstname Surname</span> <span id="raised">£0</span></li>
-				  
-				 <!-- <div id="leaderboard"></div> -->
-    </ul>
+			  <ul id="leaderboardRaised"></ul>
          
            <!-- pagination start -->
 	  <div class="wallbuttons">
 	  <div class="col-md-9 col-sm-8 col-sm-6 col-xs-12 pagination">
      	<!--<div class="numbers" id="raised-board" style="display:none">-->
      	<div class="numbers" id="raised-board" style="display:block">
-			<span>Pages</span><ul><li><a href="#" class="current">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li></ul></div>
+      <span>Pages</span>
+      <div id="pg-leaderboardRaised" class="lb-page" style="display:none"><ul></ul></div>
+      </div>
 		  </div>
 		  </div>
 	  
@@ -153,19 +153,14 @@
           
            <div class="col-md-6"><div id="distance-board" class="distance-container">
             <h3>Distance walked</h3>
-     		  <ul><li class="first"><span id="position">1 / </span><span id="name">Firstname Surname</span> <span id="raised">0km</span></li>
-    	<li><span id="position">2 / </span><span id="name">Firstname Surname</span> <span id="raised">0km</span></li>
-     <!-- <div id="leaderboard"></div> -->
-    </ul>
+            <ul id="leaderboardDist"></ul>
          
                <!-- pagination start -->
 	  <div class="wallbuttons">
 	  <div class="col-md-9 col-sm-8 col-sm-6 col-xs-12 pagination">
      	<!--<div class="numbers" id="raised-board" style="display:none">-->
      	<div class="numbers" id="raised-board" style="display:block">
-			<span>Pages</span><ul><li><a href="#" class="current">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li></ul></div>
+			<span>Pages</span><div id="pg-leaderboardDist" class="lb-page" style="display:none"><ul></ul></div></div>
 		  </div>
 		  </div>
 	  
@@ -252,12 +247,8 @@
 
      $( document ).ready(function() {
         
-        getTotalisers(); 
-		 leaderboards_raised('pages','leaderboard',25,10);
-		 
-		 edh.widgets.initModal('mySearch', 'PageSearch', {
-                campaignUid: edh_campaign_id
-            });
+        completeLeaderboard('leaderboardRaised', '', 100, 25, 0, campaignId, 'pages');
+        completeLeaderboardDist('leaderboardDist', '', 100, 25, 0, campaignId, 'pages');
 		 
     });
 </script>

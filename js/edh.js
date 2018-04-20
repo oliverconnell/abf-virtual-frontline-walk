@@ -236,6 +236,291 @@ function distanceLeaderboard(htmlDom, gName, limit, gId, cId, searchType) {
 
 
 
+function completeLeaderboard(htmlDom, gName, limit, pageSize, gId, cId, searchType) {
+
+    var url, imageUrl, pageName, pageUrl, donateUrl, content;
+    var position = 1;
+    var counter = 0;
+    var pages = 1;
+    var pageCounter=1;
+
+    url = 'https://everydayhero.com/api/v2/search/pages_totals?campaign_id=' + cId;
+    url += '&limit=' + limit + '&group_by=' + searchType;
+
+
+    if (gName != '') {
+        url += '&group_value=' + encodeURIComponent(gName);
+    }
+
+    if (searchType == 'groups') {
+        url += '&group_id=' + gId;
+    }
+
+
+    jQuery.getJSON(url)
+        .fail(function (jqxhr, textStatus, error) {
+            var err = textStatus + ", " + error;
+
+        })
+        .done(function (data) {
+
+            content = '';
+
+            if (data.results.length <= 0) {
+
+                content += '<div class="wall-box">';
+                content += '<article class="ptf-item-13">';
+                content += '<div class="txt-holder-13">';
+                content += '<h2>Sign up today and start fundraising </h2>';
+                content += '<div class="subtitle-holder-13">';
+                content += '<p class="bottom button"><a href="' + signUpLink + '">Register Now <i class="fas fa-angle-double-right"></i></a></p>';
+                content += '</div>';
+                content += '</div>';
+                content += '<div class="overlay-13"></div><img src="images/placeholder-photo.jpg" alt="">';
+                content += '</article>';
+                content += '</div>';
+            }
+
+            for (var i = 0; i < data.results.length; i++) {
+
+
+                switch (searchType) {
+                    case 'teams':
+                        imageUrl = data.results[i].team.image.large_image_url;
+                        pageName = data.results[i].team.name;
+                        pageUrl = data.results[i].team.url;
+                        linkText = 'Support us';
+                        break;
+                    case 'groups':
+                        imageUrl = 'images/placeholder-photo.jpg';
+                        pageName = data.results[i].group.value;
+                        pageUrl = 'group.html?group=' + encodeURIComponent(pageName);
+                        linkText = 'Support us';
+                        break;
+                    default:
+
+
+                        imageUrl = data.results[i].page.image.large_image_url;
+                        pageName = data.results[i].page.name;
+                        pageUrl = data.results[i].page.url;
+                        linkText = 'Support Me';
+
+
+                }
+
+
+                raised = (data.results[i].amount_cents / 100).formatNumber(2, '.', ',');
+
+
+                content += '<li data-page="' + pages + '" class="page' + pages;
+                if (i == 0) {
+                    content += ' first';
+                }
+                content += '"'; 
+                if (pages > 1) {content+= ' style="display:none;"';}
+                content +='><span id="position">' + position + '/ </span><a target="_blank" title="' + pageName + ' - fundraising page - opens in new window" href="' + pageUrl + '"><span id="name">' + pageName + '</span></a> <span id="raised">£' + raised + '</span></li>';
+
+                position++;
+
+
+                if (pageCounter == pageSize) {
+                    // IF NOT THE LAST RECORD
+                    if (i + 1 < data.results.length) {
+                        pages = pages + 1;
+                        pageCounter = 1;
+                    }
+                } else {
+                    pageCounter++;
+                }
+
+                leaderboardPagination(pages,htmlDom);
+
+
+
+
+
+
+            }
+
+
+            $('#' + htmlDom).html(content);
+
+        });
+
+
+
+
+}
+
+
+function completeLeaderboardDist(htmlDom, gName, limit, pageSize, gId, cId, searchType) {
+
+    var url, imageUrl, pageName, pageUrl, donateUrl, content;
+    var position = 1;
+    var counter = 0;
+    var pages = 1;
+    var pageCounter=1;
+
+    
+
+    url = 'https://everydayhero.com/api/v2/search/fitness_activities_totals?campaign_id=' + cId;
+    url += '&include_manual=true&type[]=walk&type[]=hike&type[]=run&limit=' + limit + '&group_by=' + searchType;
+
+
+    if (gName != '') {
+        url += '&group_value=' + encodeURIComponent(gName);
+    }
+
+    if (searchType == 'groups') {
+        url += '&group_id=' + gId;
+    }
+
+
+    jQuery.getJSON(url)
+        .fail(function (jqxhr, textStatus, error) {
+            var err = textStatus + ", " + error;
+
+        })
+        .done(function (data) {
+
+            content = '';
+
+            if (data.results.length <= 0) {
+
+                content += '<div class="wall-box">';
+                content += '<article class="ptf-item-13">';
+                content += '<div class="txt-holder-13">';
+                content += '<h2>Sign up today and start fundraising </h2>';
+                content += '<div class="subtitle-holder-13">';
+                content += '<p class="bottom button"><a href="' + signUpLink + '">Register Now <i class="fas fa-angle-double-right"></i></a></p>';
+                content += '</div>';
+                content += '</div>';
+                content += '<div class="overlay-13"></div><img src="images/placeholder-photo.jpg" alt="">';
+                content += '</article>';
+                content += '</div>';
+            }
+
+            for (var i = 0; i < data.results.length; i++) {
+
+
+                switch (searchType) {
+                    case 'teams':
+                        imageUrl = data.results[i].team.image.large_image_url;
+                        pageName = data.results[i].team.name;
+                        pageUrl = data.results[i].team.url;
+                        linkText = 'Support us';
+                        break;
+                    case 'groups':
+                        imageUrl = 'images/placeholder-photo.jpg';
+                        pageName = data.results[i].group.value;
+                        pageUrl = 'group.html?group=' + encodeURIComponent(pageName);
+                        linkText = 'Support us';
+                        break;
+                    default:
+
+
+                        imageUrl = data.results[i].page.image.large_image_url;
+                        pageName = data.results[i].page.name;
+                        pageUrl = data.results[i].page.url;
+                        linkText = 'Support Me';
+
+
+                }
+
+
+                distance = (data.results[i].distance_in_meters / 1000).formatNumber(2, '.', ',');
+
+
+                content += '<li data-page="' + pages + '" class="page' + pages;
+                if (i == 0) {
+                    content += ' first';
+                }
+                content += '"'; 
+                if (pages > 1) {content+= ' style="display:none;"';}
+                content +='><span id="position">' + position + '/ </span><a target="_blank" title="' + pageName + ' - fundraising page - opens in new window" href="' + pageUrl + '"><span id="name">' + pageName + '</span></a> <span id="raised">' + distance + ' KM</span></li>';
+
+                position++;
+
+
+                if (pageCounter == pageSize) {
+                    // IF NOT THE LAST RECORD
+                    if (i + 1 < data.results.length) {
+                        pages = pages + 1;
+                        pageCounter = 1;
+                    }
+                } else {
+                    pageCounter++;
+                }
+
+                leaderboardPagination(pages,htmlDom);
+
+
+
+
+
+
+            }
+
+
+            $('#' + htmlDom).html(content);
+
+        });
+
+
+
+
+}
+
+function leaderboardPagination(total_pages,htmldom)
+{
+           
+
+            if (total_pages > 1)
+              {
+
+                  var pagination = '';
+
+                  for (var i = 1; i <= total_pages; i++) {    
+
+                        pagination += '<li><a onclick="pageResults(' + total_pages + ',this,\''+ htmldom + '\')" data-page="' + i + '"';
+
+                        if (i==1)
+                        {
+                          pagination += 'class="current"';
+                        }
+                        
+
+                        pagination += '>' + i + '</a></li>';
+
+                  }
+
+                  
+                  $('#pg-' + htmldom + ' ul').html(pagination);
+
+                  $('#pg-' + htmldom).show();
+              }
+}
+
+function pageResults( total_pages, element,htmldom)
+{
+
+    
+
+    $('#pg-' + htmldom + ' ul li a').removeClass('current');
+    $(element).addClass('current');
+
+    for (var i = 1; i <= total_pages; i++)     
+    {
+        $('#' + htmldom + ' .page' + i).hide();
+    }
+
+    $('#' + htmldom + ' .page' + element.getAttribute('data-page')).show();
+
+}
+
+
+
+
 function stories(htmlDom) {
     url = 'js/stories.json';
 
@@ -280,8 +565,6 @@ function supporterStory(htmlDom, gName, limit, gId, cId, searchType) {
     url += '-' + (searchDate.getMonth()) + '-' + searchDate.getDate() + '&campaign_id[]=' + cId;
 
 
-    console.log(url);
-
     jQuery.getJSON(url)
         .fail(function (jqxhr, textStatus, error) {
             var err = textStatus + ", " + error;
@@ -291,9 +574,6 @@ function supporterStory(htmlDom, gName, limit, gId, cId, searchType) {
 
             content = '';
 
-
-
-            console.log(data.pages)
             var filtered_data = jQuery.grep(data.pages, function (element, index) {
                 return element.image.large_image_url.indexOf('avatar') <= 0 && element.story.indexOf('I’m taking part in ') <= 0;
             });
@@ -311,9 +591,8 @@ function supporterStory(htmlDom, gName, limit, gId, cId, searchType) {
                 amount = (filtered_data[ranKey].amount.cents / 100).formatNumber(0, '.', ',');
                 story = filtered_data[ranKey].story;
 
-                if (story.length>350)
-                {
-                    story = story.substring(0, 350) + "..."; 
+                if (story.length > 350) {
+                    story = story.substring(0, 350) + "...";
                 }
 
 
@@ -343,62 +622,6 @@ function supporterStory(htmlDom, gName, limit, gId, cId, searchType) {
 
 
 
-// supporter wall
-
-function supporter_wall_display(data) {
-
-
-    wall_content = '';
-    pages = 1;
-    page_size = 8;
-    page_counter = 1;
-
-    for (var i = 1; i < data.length; i++) {
-
-        page_name = data[i].name;
-        page_url = data[i].url;
-        page_image = data[i].image.large_image_url;
-        amount = (data.pages[i].amount.cents / 100).formatNumber(0, '.', ',');
-
-
-        wall_content += '<div class="col-md-2 col-xs-6 box page' + pages + '";'
-        if (pages > 1) {
-            wall_content += ' style="display:none;"';
-        }
-        wall_content += '>';
-
-
-        wall_content += '<div class="box"><article class="ptf-item-6">';
-        wall_content += '<div class="txt-holder-primary"></div><div class="txt-holder-secondary"><div class="description"><div class="inner-description">';
-        wall_content += '<p><a href="' + page_url + '"><span id="name">' + page_name + '</span></p><p>has walked <span id="distance">0</span>km and raised £<span class="raised">' + amount + '</span></p><p><i class="fas fa-angle-double-right"></i></a></p></div></div> </div>';
-        wall_content += '<div class="overlay-6"></div><img src="' + page_image + '"/></article></div>';
-
-
-
-        if (page_counter > page_size) {
-
-            // IF NOT THE LAST RECORD
-            if (i < data.length) {
-                pages = pages + 1;
-                page_counter = 1;
-            }
-
-        } else {
-            page_counter++;
-        }
-
-    }
-
-
-    $('#edhSupporterWall').html(wall_content);
-
-    supporter_wall_pagination(pages);
-
-
-
-
-
-}
 
 function supporterWall(htmlDom, gName, limit, pageSize, gId, cId, searchType) {
 
@@ -453,13 +676,13 @@ function supporterWall(htmlDom, gName, limit, pageSize, gId, cId, searchType) {
 
 
                 }
-                
-                
-                content += '<div class="box supporterGallery page' + pages + '"'; 
+
+
+                content += '<div class="box supporterGallery page' + pages + '"';
                 if (pages > 0) {
                     content += ' style="display:none"';
                 }
-                content +='><article class="ptf-item-6">';
+                content += '><article class="ptf-item-6">';
                 content += '<div class="txt-holder-primary"></div><div class="txt-holder-secondary"><div class="description"><div class="inner-description">';
                 content += '<p><a href="' + pageUrl + '"><span id="name">' + pageName + '</span></p><p> and raised £<span class="raised">' + amount + '</span></p><p><i class="fas fa-angle-double-right"></i></a></p></div></div> </div>';
                 content += '<div class="overlay-6"></div><img src="' + imageUrl + '"/></article></div>';
@@ -485,137 +708,28 @@ function supporterWall(htmlDom, gName, limit, pageSize, gId, cId, searchType) {
             $('#' + htmlDom).html(content);
             $('#supporterGalleryPageMax').val(pages);
 
-            if (pages <=1){$("#supporterGalleryNext").hide();}
-
-        });
-
-
-
-
-}
-
-
-function supporter_wall(limit) {
-
-
-    var edh_API = 'https://everydayhero.com/api/v2/search/pages?campaign_id=' + edh_campaign_id;
-    edh_API += '&type=user&limit=' + limit;
-
-
-    jQuery.getJSON(edh_API)
-        .fail(function (jqxhr, textStatus, error) {
-            var err = textStatus + ", " + error;
-        })
-        .done(function (data) {
-
-            var filtered_data = jQuery.grep(data.pages, function (element, index) {
-                return element.active == true && element.image.large_image_url.indexOf('avatar') <= 0 && element.image.large_image_url.indexOf('missing') <= 0;
-            });
-
-            supporter_wall_display(filtered_data);
-        });
-
-}
-
-function supporter_wall_pagination(total_pages) {
-
-
-    if (total_pages > 1) {
-
-        var pagination = '';
-
-        for (var i = 1; i <= total_pages; i++) {
-
-            pagination += '<li><a onclick="pageResults(' + total_pages + ',this)" data-page="' + i + '"';
-
-            if (i == 1) {
-                pagination += 'class="current"';
+            if (pages <= 1) {
+                $("#supporterGalleryNext").hide();
             }
 
-
-            pagination += '>' + i + '</a></li>';
-
-        }
-
-
-        $('#pg-supporterwall ul').html(pagination);
-
-        $('#pg-supporterwall').show();
-    }
-}
-
-
-
-function pageResults(total_pages, element) {
-
-    $('#pg-supporterwall ul li a').removeClass('current');
-    $(element).addClass('current');
-
-    $(element).addClass('current');
-
-    for (var i = 1; i <= total_pages; i++) {
-        $('#edhSupporterWall .page' + i).hide();
-    }
-
-    $('#edhSupporterWall .page' + element.getAttribute('data-page')).show();
-
-}
-
-
-
-
-
-
-
-
-
-
-function _deletetotaliser(cId) {
-
-
-    var url = 'https://everydayhero.com/api/v2/search/totals?campaign_id=' + cId;
-    var offset = 0;
-    var percentage = 0;
-    var totaliserPercent = 0;
-
-
-    jQuery.getJSON(url)
-        .fail(function (jqxhr, textStatus, error) {
-            var err = textStatus + ", " + error;
-        })
-        .done(function (data) {
-            $("#totalRaised").html((data.total_amount_cents.sum / 100).formatNumber(0, '.', ','));
-
-            //84% is a full totaliser.
-            //12% is an empty totaliser. 
-            percentage = Math.floor((data.total_amount_cents.sum / camapaignGoal) * 100);
-
-            $("#totalPercent").html(percentage.formatNumber(0, '.', ',') + '%');
-
-
-            totaliserPercent = 84 - (percentage / 100) * 72;
-
-
-            var stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-            stop1.setAttribute("offset", "0%");
-            stop1.setAttribute("stop-color", "#ef4b3e");
-            document.getElementById("Gradient1").appendChild(stop1);
-
-            var stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-            stop1.setAttribute("offset", totaliserPercent + "%");
-            stop1.setAttribute("stop-color", "#ef4b3e");
-            document.getElementById("Gradient1").appendChild(stop1);
-
-            var stop2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-            stop2.setAttribute("offset", "0%");
-            stop2.setAttribute("stop-color", "transparent");
-            document.getElementById("Gradient1").appendChild(stop2);
-
-
         });
 
 
 
 
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
