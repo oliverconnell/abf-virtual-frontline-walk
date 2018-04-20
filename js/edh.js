@@ -2,6 +2,9 @@ var campaignId = 'gb-8097';
 var groupId = '0';
 var signUpLink = 'https://the-virtual-frontline-walk-2018.everydayhero.com//uk/get-started';
 
+var campaignStart = '2018-01-01';
+var campaignEnd = '2018-12-31';
+
 Number.prototype.formatNumber = function (c, d, t) {
     var n = this,
         c = isNaN(c = Math.abs(c)) ? 2 : c,
@@ -12,6 +15,12 @@ Number.prototype.formatNumber = function (c, d, t) {
         j = (j = i.length) > 3 ? j % 3 : 0;
     return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
+
+function getParameterByName(key) {
+    key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx control chars
+    var match = location.search.match(new RegExp("[?&]" + key + "=([^&]+)(&|$)"));
+    return match && decodeURIComponent(match[1].replace(/\+/g, " "));
+}
 
 
 
@@ -242,7 +251,7 @@ function completeLeaderboard(htmlDom, gName, limit, pageSize, gId, cId, searchTy
     var position = 1;
     var counter = 0;
     var pages = 1;
-    var pageCounter=1;
+    var pageCounter = 1;
 
     url = 'https://everydayhero.com/api/v2/search/pages_totals?campaign_id=' + cId;
     url += '&limit=' + limit + '&group_by=' + searchType;
@@ -316,9 +325,11 @@ function completeLeaderboard(htmlDom, gName, limit, pageSize, gId, cId, searchTy
                 if (i == 0) {
                     content += ' first';
                 }
-                content += '"'; 
-                if (pages > 1) {content+= ' style="display:none;"';}
-                content +='><span id="position">' + position + '/ </span><a target="_blank" title="' + pageName + ' - fundraising page - opens in new window" href="' + pageUrl + '"><span id="name">' + pageName + '</span></a> <span id="raised">£' + raised + '</span></li>';
+                content += '"';
+                if (pages > 1) {
+                    content += ' style="display:none;"';
+                }
+                content += '><span id="position">' + position + '/ </span><a target="_blank" title="' + pageName + ' - fundraising page - opens in new window" href="' + pageUrl + '"><span id="name">' + pageName + '</span></a> <span id="raised">£' + raised + '</span></li>';
 
                 position++;
 
@@ -333,7 +344,7 @@ function completeLeaderboard(htmlDom, gName, limit, pageSize, gId, cId, searchTy
                     pageCounter++;
                 }
 
-                leaderboardPagination(pages,htmlDom);
+                leaderboardPagination(pages, htmlDom);
 
 
 
@@ -359,9 +370,9 @@ function completeLeaderboardDist(htmlDom, gName, limit, pageSize, gId, cId, sear
     var position = 1;
     var counter = 0;
     var pages = 1;
-    var pageCounter=1;
+    var pageCounter = 1;
 
-    
+
 
     url = 'https://everydayhero.com/api/v2/search/fitness_activities_totals?campaign_id=' + cId;
     url += '&include_manual=true&type[]=walk&type[]=hike&type[]=run&limit=' + limit + '&group_by=' + searchType;
@@ -435,9 +446,11 @@ function completeLeaderboardDist(htmlDom, gName, limit, pageSize, gId, cId, sear
                 if (i == 0) {
                     content += ' first';
                 }
-                content += '"'; 
-                if (pages > 1) {content+= ' style="display:none;"';}
-                content +='><span id="position">' + position + '/ </span><a target="_blank" title="' + pageName + ' - fundraising page - opens in new window" href="' + pageUrl + '"><span id="name">' + pageName + '</span></a> <span id="raised">' + distance + ' KM</span></li>';
+                content += '"';
+                if (pages > 1) {
+                    content += ' style="display:none;"';
+                }
+                content += '><span id="position">' + position + '/ </span><a target="_blank" title="' + pageName + ' - fundraising page - opens in new window" href="' + pageUrl + '"><span id="name">' + pageName + '</span></a> <span id="raised">' + distance + ' KM</span></li>';
 
                 position++;
 
@@ -452,7 +465,7 @@ function completeLeaderboardDist(htmlDom, gName, limit, pageSize, gId, cId, sear
                     pageCounter++;
                 }
 
-                leaderboardPagination(pages,htmlDom);
+                leaderboardPagination(pages, htmlDom);
 
 
 
@@ -471,46 +484,41 @@ function completeLeaderboardDist(htmlDom, gName, limit, pageSize, gId, cId, sear
 
 }
 
-function leaderboardPagination(total_pages,htmldom)
-{
-           
+function leaderboardPagination(total_pages, htmldom) {
 
-            if (total_pages > 1)
-              {
 
-                  var pagination = '';
+    if (total_pages > 1) {
 
-                  for (var i = 1; i <= total_pages; i++) {    
+        var pagination = '';
 
-                        pagination += '<li><a onclick="pageResults(' + total_pages + ',this,\''+ htmldom + '\')" data-page="' + i + '"';
+        for (var i = 1; i <= total_pages; i++) {
 
-                        if (i==1)
-                        {
-                          pagination += 'class="current"';
-                        }
-                        
+            pagination += '<li><a onclick="pageResults(' + total_pages + ',this,\'' + htmldom + '\')" data-page="' + i + '"';
 
-                        pagination += '>' + i + '</a></li>';
+            if (i == 1) {
+                pagination += 'class="current"';
+            }
 
-                  }
 
-                  
-                  $('#pg-' + htmldom + ' ul').html(pagination);
+            pagination += '>' + i + '</a></li>';
 
-                  $('#pg-' + htmldom).show();
-              }
+        }
+
+
+        $('#pg-' + htmldom + ' ul').html(pagination);
+
+        $('#pg-' + htmldom).show();
+    }
 }
 
-function pageResults( total_pages, element,htmldom)
-{
+function pageResults(total_pages, element, htmldom) {
 
-    
+
 
     $('#pg-' + htmldom + ' ul li a').removeClass('current');
     $(element).addClass('current');
 
-    for (var i = 1; i <= total_pages; i++)     
-    {
+    for (var i = 1; i <= total_pages; i++) {
         $('#' + htmldom + ' .page' + i).hide();
     }
 
@@ -724,6 +732,219 @@ function supporterWall(htmlDom, gName, limit, pageSize, gId, cId, searchType) {
 
 
 
+function displaySupporterDetails(pId) {
+
+    var url;
+
+
+    // PAGE DETAILS
+    url = 'https://everydayhero.com/api/v2/pages/' + pId;
+
+    jQuery.getJSON(url)
+        .fail(function (jqxhr, textStatus, error) {
+            var err = textStatus + ", " + error;
+        })
+        .done(function (data) {
+
+
+            var pageURL = data.page.url;
+            var donationURL = data.page.donation_url;
+            var pageName = data.page.name;
+            var pageRaisedPence = data.page.amount.cents;
+            var pageTarget = 3000;
+            var amountLeft = pageTarget - pageRaisedPence;
+            var pageImage = data.page.image.large_image_url;
+            var fitnessGoal = data.page.fitness_goal;
+
+            if (amountLeft <= 0) {
+                amountLeft = 0;
+            }
+
+            var pageDonations = data.page.meta.totals.total_donations;
+            var pageImage = data.page.image.large_image_url;
+            var pageRaised = pageRaisedPence / 100
+
+            var pagePercentage = (pageRaised / pageTarget) * 100;
+            if (pagePercentage > 100) {
+                pagePercentage = 100
+            }
+
+            $("#raised").html('£' + pageRaised.formatNumber(2, '.', ','));
+            
+
+            $("#supporterPhoto").attr("src",pageImage);
+            $("#supporterName").html(pageName + '\'s page');
+            $("#supporterPage").attr("href", pageURL);
+
+
+            if (pageRaised < 100) { $("#rank-name").html("Lance Corporal"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_lancecorporal)'); } else
+            if (pageRaised < 250) { $("#rank-name").html("Corporal"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_corporal.png)'); } else
+            if (pageRaised < 500) { $("#rank-name").html("Sargeant");$('#rank-name-image').css('background-image', 'url(images/challenge_rank_sargeant)'); } else
+            if (pageRaised < 1000) { $("#rank-name").html("Staff Sargaent"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_captain.png)'); } else
+            if (pageRaised < 1500) { $("#rank-name").html("Warrant Officer Class 2"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_warrantofficerone.png)'); } else
+            if (pageRaised < 2000) { $("#rank-name").html("Warrant Officer Class 1"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_warrantofficertwo.png)'); } else
+            if (pageRaised < 3000) { $("#rank-name").html("Captain");$('#rank-name-image').css('background-image', 'url(challenge_rank_captain.png)'); } else
+            {
+                $("#rank-name").html("General");
+                $('#rank-name-image').css('background-image', 'url(images/challenge_rank_general.png)'); 
+            }
+
+           
+
+
+            //rank-name
+            //rank-name-image
+            
+
+
+
+
+
+        });
+
+    // DONATIONS 
+    url = 'https://everydayhero.com/api/v2/search/feed?page_id=' + pId + '&type=OnlineDonation&limit=15';
+    var content = '';
+        
+    jQuery.getJSON(url)
+        .fail(function (jqxhr, textStatus, error) {
+            var err = textStatus + ", " + error;
+
+        })
+        .done(function (data) {
+            
+
+            var nickName;
+            var donationAmount;
+
+            for (var i = 0; i < data.results.length; i++) {
+                nickName = data.results[i].nickname;
+                donationAmount = data.results[i].amount.cents / 100;
+
+                content += '<li><span id="donor-name">' + nickName + '</span> <span id="donor-amount">£' + donationAmount.formatNumber(2, '.', ',') + '</span></li>';
+
+
+
+            }
+            $("#donationList").html(content);
+            content='';
+
+        });
+
+
+
+    // PHOTOS 
+    url = 'https://everydayhero.com/api/v2/search/feed?page_id=' + pId + '&type=Post';
+    var imageUrl;
+
+    jQuery.getJSON(url)
+        .fail(function (jqxhr, textStatus, error) {
+            var err = textStatus + ", " + error;
+
+        })
+        .done(function (data) {
+            
+
+            var nickName;
+            var donationAmount;
+
+            var filtered_data = jQuery.grep(data.results, function (element, index) {
+                return element.image_url!=null;
+            });
+                    
+            if (filtered_data.length > 0) {
+
+            for (var i = 0; i < filtered_data.length; i++) {
+                
+                imageUrl = filtered_data[i].image_url;
+
+                content += '<div class="box"><img src="' + imageUrl + '"/></div>';
+             
+                
+            }
+
+                $("#supporterPhotosFeed").html(content);
+                }
+
+        content='';
+
+        });
+
+
+        
+
+    // FITNESS START 
+    url = 'https://everydayhero.com/api/v2/search/fitness_activities?page_id=' + pId;
+    url += '&limit=1&page=1&include_manual=true&start_at=' + campaignStart;
+    url += '&end_at=' + campaignEnd;
+
+    
+    // FITNESS START 
+    jQuery.getJSON(url)
+        .fail(function (jqxhr, textStatus, error) {
+            var err = textStatus + ", " + error;
+
+        })
+        .done(function (data) {
+
+            data.fitness_activities.sort(function (a, b) {
+                return a.id - b.id;
+            });
+
+            if (data.length>0)
+            {
+            
+            
+
+            var edhStartDate = new Date(data.fitness_activities[0].started_at);
+            var dd = edhStartDate.getDate();
+            var mm = edhStartDate.getMonth() + 1; //January is 0!
+            var yyyy = edhStartDate.getFullYear();
+            var hours = edhStartDate.getHours();
+            var mins = edhStartDate.getMinutes();
+            if (mins == '') {
+                mins = '00'
+            }
+            var time = hours + ':' + mins;
+
+            $('#start-time').html(time);
+            $('#start-date').html(dd + ' ' + monthNames[mm] + ' ' + yyyy);
+        }
+
+
+        });
+
+
+
+    url = 'https://everydayhero.com/api/v2/search/fitness_activities_totals?page_id=' + pId;
+    url += '&include_manual=true&start_at=' + campaignStart;
+    url += '&end_at=' + campaignEnd;
+    url += '&cacheclear=' + Math.floor(Math.random() * 20);
+
+
+
+    jQuery.getJSON(url)
+        .fail(function (jqxhr, textStatus, error) {
+            var err = textStatus + ", " + error;
+
+        })
+        .done(function (data) {
+
+            if (data.results.length <= 0) {
+
+
+            } else {
+
+
+
+                distance = (data.results[0].distance_in_meters / 1000);
+                $("#distance").html(distance.formatNumber(0, '.', ',') + 'km');
+
+
+            }
+
+
+        });
 
 
 
@@ -733,3 +954,5 @@ function supporterWall(htmlDom, gName, limit, pageSize, gId, cId, searchType) {
 
 
 
+
+}
