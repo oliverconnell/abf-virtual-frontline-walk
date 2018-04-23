@@ -777,19 +777,32 @@ function displaySupporterDetails(pId) {
             $("#supporterPage").attr("href", pageURL);
 
 
-            if (pageRaised < 100) { $("#rank-name").html("Lance Corporal"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_lancecorporal)'); } else
-            if (pageRaised < 250) { $("#rank-name").html("Corporal"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_corporal.png)'); } else
-            if (pageRaised < 500) { $("#rank-name").html("Sargeant");$('#rank-name-image').css('background-image', 'url(images/challenge_rank_sargeant)'); } else
-            if (pageRaised < 1000) { $("#rank-name").html("Staff Sargaent"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_captain.png)'); } else
-            if (pageRaised < 1500) { $("#rank-name").html("Warrant Officer Class 2"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_warrantofficerone.png)'); } else
-            if (pageRaised < 2000) { $("#rank-name").html("Warrant Officer Class 1"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_warrantofficertwo.png)'); } else
-            if (pageRaised < 3000) { $("#rank-name").html("Captain");$('#rank-name-image').css('background-image', 'url(challenge_rank_captain.png)'); } else
+            
+            if (pageRaised < 100) { $("#rank-name").html("Lance Corporal"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_lancecorporal)'); $('.pixel-overlay2').height('10%');} else
+            if (pageRaised < 250) { $("#rank-name").html("Corporal"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_corporal.png)'); $('.pixel-overlay2').height('75.5%');} else
+            if (pageRaised < 500) { $("#rank-name").html("Sargeant");$('#rank-name-image').css('background-image', 'url(images/challenge_rank_sargeant)'); $('.pixel-overlay2').height('66.5%');} else
+            if (pageRaised < 1000) { $("#rank-name").html("Staff Sargaent"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_captain.png)'); $('.pixel-overlay2').height('56%');} else
+            if (pageRaised < 1500) { $("#rank-name").html("Warrant Officer Class 2"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_warrantofficerone.png)'); $('.pixel-overlay2').height('44%');} else
+            if (pageRaised < 2000) { $("#rank-name").html("Warrant Officer Class 1"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_warrantofficertwo.png)'); $('.pixel-overlay2').height('33%');} else
+            if (pageRaised < 3000) { $("#rank-name").html("Captain");$('#rank-name-image').css('background-image', 'url(challenge_rank_captain.png)'); $('.pixel-overlay2').height('22.5%');} else
             {
                 $("#rank-name").html("General");
                 $('#rank-name-image').css('background-image', 'url(images/challenge_rank_general.png)'); 
+                $('.pixel-overlay2').height('7.5%');
             }
 
            
+
+            
+ 
+
+
+
+
+
+
+
+
 
 
             //rank-name
