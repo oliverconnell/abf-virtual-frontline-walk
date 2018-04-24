@@ -688,6 +688,7 @@ clip-path: polygon(0% 0%, 48% 0%, 50% 40px, 52% 0%, 100% 0%, 100% 100%, 0% 100%)
 	cursor: pointer;
 	text-decoration: none;
 	color: #fff;
+	font-size: 0.9em;
 }
 
 /* box */
@@ -1395,7 +1396,7 @@ background-color: #ef4b3e; /* W3C */
 }
 
 .challenge .rank-container {
-	background-position: 0 90%;
+	background-position: 50% 90%;
 	background-repeat: no-repeat;
 	text-align: center;
 	text-transform: uppercase;

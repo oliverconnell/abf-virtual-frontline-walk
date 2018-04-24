@@ -692,7 +692,7 @@ function supporterWall(htmlDom, gName, limit, pageSize, gId, cId, searchType) {
                 }
                 content += '><article class="ptf-item-6">';
                 content += '<div class="txt-holder-primary"></div><div class="txt-holder-secondary"><div class="description"><div class="inner-description">';
-                content += '<p><a href="' + pageUrl + '"><span id="name">' + pageName + '</span></p><p> and raised £<span class="raised">' + amount + '</span></p><p><i class="fas fa-angle-double-right"></i></a></p></div></div> </div>';
+                content += '<p><a href="' + pageUrl + '"><span id="name">' + pageName + '</span></p><p> has raised £<span class="raised">' + amount + '</span></p><p><i class="fas fa-angle-double-right"></i></a></p></div></div> </div>';
                 content += '<div class="overlay-6"></div><img src="' + imageUrl + '"/></article></div>';
 
 
@@ -778,9 +778,9 @@ function displaySupporterDetails(pId) {
 
 
             
-            if (pageRaised < 100) { $("#rank-name").html("Lance Corporal"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_lancecorporal)'); $('.pixel-overlay2').height('10%');} else
+            if (pageRaised < 100) { $("#rank-name").html("Lance Corporal"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_lancecorporal.png)'); $('.pixel-overlay2').height('10%');} else
             if (pageRaised < 250) { $("#rank-name").html("Corporal"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_corporal.png)'); $('.pixel-overlay2').height('75.5%');} else
-            if (pageRaised < 500) { $("#rank-name").html("Sargeant");$('#rank-name-image').css('background-image', 'url(images/challenge_rank_sargeant)'); $('.pixel-overlay2').height('66.5%');} else
+            if (pageRaised < 500) { $("#rank-name").html("Sargeant");$('#rank-name-image').css('background-image', 'url(images/challenge_rank_sargeant.png)'); $('.pixel-overlay2').height('66.5%');} else
             if (pageRaised < 1000) { $("#rank-name").html("Staff Sargaent"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_captain.png)'); $('.pixel-overlay2').height('56%');} else
             if (pageRaised < 1500) { $("#rank-name").html("Warrant Officer Class 2"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_warrantofficerone.png)'); $('.pixel-overlay2').height('44%');} else
             if (pageRaised < 2000) { $("#rank-name").html("Warrant Officer Class 1"); $('#rank-name-image').css('background-image', 'url(images/challenge_rank_warrantofficertwo.png)'); $('.pixel-overlay2').height('33%');} else
