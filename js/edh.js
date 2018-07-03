@@ -1,4 +1,8 @@
+//var campaignId = 'gb-8097';
+
 var campaignId = 'gb-8097';
+//var campaignId = 'gb-8097';
+var campaignId = 'gb-8193';
 var groupId = '0';
 var signUpLink = 'https://the-virtual-frontline-walk-2018.everydayhero.com//uk/get-started';
 

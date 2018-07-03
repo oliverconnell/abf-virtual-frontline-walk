@@ -36,7 +36,9 @@
   <script src="//d1ig6folwd6a9s.cloudfront.net/widgets-3.1.2.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="js/edh.js"></script>
-
+  
+  <!-- curator -->
+<link rel="stylesheet" type="text/css" href="//cdn.curator.io/3.1/css/curator.css"/>
 
 </head>
 
@@ -462,7 +464,7 @@
 
               <div class="col-md-6">
                 <div class="distance-container">
-                  <h3>Distance walked</h3>
+                  <h3>Distance walked</h3><div class="board-subtext">Start tracking your walk on 1st of October</div>
                   <ul>
                     <div id="leaderboardDist"></div>
                   </ul>
@@ -502,9 +504,10 @@
           <div class="row">
             <div class="col-md-12">
               <h2>Online</h2>
+              
               <!-- Place <div> tag where you want the feed to appear -->
 <div id="curator-feed"><a href="https://curator.io" target="_blank" class="crt-logo crt-tag">Powered by Curator.io</a></div>
-<!-- The Javascript can be moved to the end of the html page before the </body> tag -->
+<!-- The Javascript can be moved to the end of the html page before the </body> tag
 <script type="text/javascript">
 /* curator-feed */
 (function(){
@@ -512,7 +515,7 @@ var i, e, d = document, s = "script";i = d.createElement("script");i.async = 1;
 i.src = "https://cdn.curator.io/published/ae527377-9e76-4732-867f-4b81433c.js";
 e = d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i, e);
 })();
-</script>
+</script> -->
             </div>
 
           </div>
@@ -717,7 +720,17 @@ e = d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i, e);
     });
   </script>
 
-
+<!-- curator feed height adjustment -->
+<script type="text/javascript" src="//cdn.curator.io/3.1/js/curator.js"></script>
+<script type="text/javascript">
+    // Change FEED_ID to your unique FEED_ID
+    var widget = new Curator.Widgets.Carousel({
+        debug:true, // While you're testing
+        container:'#curator-feed',
+        feedId:'ae527377-9e76-4732-867f-4b81433c',
+		maxHeight:300,
+    });
+</script>
 
 </body>
 

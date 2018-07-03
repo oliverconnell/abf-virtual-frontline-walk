@@ -828,6 +828,11 @@ clip-path: polygon(0% 0%, 48% 0%, 50% 7%, 52% 0%, 100% 0%, 100% 100%, 0% 100%);
 	padding-top: 50px;
 }
 
+.board-subtext {
+font-size: 0.8em;	
+	color: #ccc;
+}
+
 #leaders .overlay {
 	background-color: rgba(0,0,0,0.7);
 	margin-top: -50px;
