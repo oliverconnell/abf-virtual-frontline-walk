@@ -6,8 +6,8 @@ var campaignId = 'gb-8193';
 var groupId = '0';
 var signUpLink = 'https://the-virtual-frontline-walk-2018.everydayhero.com//uk/get-started';
 
-var campaignStart = '2018-01-01';
-var campaignEnd = '2018-12-31';
+var campaignStart = '2018-10-01';
+var campaignEnd = '2018-11-11';
 
 Number.prototype.formatNumber = function (c, d, t) {
     var n = this,
@@ -170,6 +170,7 @@ function distanceLeaderboard(htmlDom, gName, limit, gId, cId, searchType) {
 
     url = 'https://everydayhero.com/api/v2/search/fitness_activities_totals?campaign_id=' + cId;
     url += '&include_manual=true&type[]=walk&type[]=hike&type[]=run&limit=' + limit + '&group_by=' + searchType;
+    url += '&start_at=' + campaignStart + '&end_at=' + campaignEnd;
 
     if (gName != '') {
         url += '&group_value=' + encodeURIComponent(gName);
@@ -380,6 +381,7 @@ function completeLeaderboardDist(htmlDom, gName, limit, pageSize, gId, cId, sear
 
     url = 'https://everydayhero.com/api/v2/search/fitness_activities_totals?campaign_id=' + cId;
     url += '&include_manual=true&type[]=walk&type[]=hike&type[]=run&limit=' + limit + '&group_by=' + searchType;
+    url += '&start_at=' + campaignStart + '&end_at=' + campaignEnd;
 
 
     if (gName != '') {
